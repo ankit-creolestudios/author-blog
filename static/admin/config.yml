@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  repo: rishabh90/rhode-island-gatsby
+  repo: ankit-creolestudios/author-blog
 
   branch: master
 
