@@ -1,0 +1,146 @@
+backend:
+  name: git-gateway
+  repo: rishabh90/rhode-island-gatsby
+
+  branch: master
+
+  commit_messages:
+    create: "Create {{collection}} “{{slug}}”"
+    update: "Update {{collection}} “{{slug}}”"
+    delete: "Delete {{collection}} “{{slug}}”"
+    uploadMedia: "[skip ci] Upload “{{path}}”"
+    deleteMedia: "[skip ci] Delete “{{path}}”"
+
+media_folder: static/img
+public_folder: /img
+publish_mode: editorial_workflow
+local_backend: true
+
+collections:
+  - name: "author"
+    label: "Authors"
+    folder: "src/content/authors"
+    create: true
+    fields:
+      - {
+          label: "Template Key",
+          name: "templateKey",
+          widget: "hidden",
+          default: "authors",
+        }
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Author Image", name: "image", widget: image }
+  - name: "blog"
+    label: "Blog"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {
+          label: "Template Key",
+          name: "templateKey",
+          widget: "hidden",
+          default: "blog-post",
+        }
+      - {
+          label: "Author",
+          name: "author",
+          widget: "relation",
+          collection: "author",
+          search_fields: ["name"],
+          value_field: "name",
+          display_fields: ["image"],
+        }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Featured Post", name: "featuredpost", widget: "boolean" }
+      - { label: "Featured Image", name: "featuredimage", widget: image }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Tags", name: "tags", widget: "list" }
+
+  - label: "Settings"
+    name: "settings"
+    files:
+      - label: "Header Settings"
+        name: "headerSettings"
+        file: "src/content/header.md"
+        fields:
+          - {
+              label: "Template Key",
+              name: "templateKey",
+              widget: "hidden",
+              default: "header",
+            }
+          - { label: "Logo", name: "logo", widget: image }
+          - label: "Menu"
+            name: "menu"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: string }
+              - { label: "Url", name: "url", widget: string }
+      - label: "Footer Settings"
+        name: "footerSettings"
+        file: "src/content/footer.md"
+        fields:
+          - {
+              label: "Template Key",
+              name: "templateKey",
+              widget: "hidden",
+              default: "footer",
+            }
+          - { label: "Logo", name: "footerlogo", widget: image }
+          - label: "Contact Information"
+            name: "information"
+            widget: "object"
+            fields:
+              - { label: Phone, name: phone, widget: string }
+              - { label: Email, name: email, widget: string }
+              - { label: Address, name: address, widget: markdown }
+          - label: "Social Menu"
+            name: "socialMenu"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: string }
+              - { label: "Url", name: "url", widget: string }
+          - label: "Agency Menu"
+            name: "agencyMenu"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: string }
+              - { label: "Url", name: "url", widget: string }
+  - label: "Pages"
+    name: "pages"
+    files:
+      - label: "Home"
+        name: "home"
+        file: "src/content/home.md"
+        fields:
+          - {
+              label: "Template Key",
+              name: "templateKey",
+              widget: "hidden",
+              default: "home",
+            }
+          - { label: Latest Work, name: latestWork, widget: image }
+          - label: "Hero Image"
+            name: "heroimage"
+            widget: "object"
+            fields:
+              - { label: image, name: image, widget: image }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Sub Heading, name: subHeading, widget: string }
+              - { label: Description, name: description, widget: markdown }
+          - label: "Services"
+            name: "service"
+            widget: "list"
+            fields:
+              - { label: Service Title, name: sliderTitle, widget: string }
+              - { label: Image, name: image, widget: image }
+              - { label: Description, name: description, widget: markdown }
+          - label: "Clients"
+            name: "clients"
+            widget: "list"
+            fields:
+              - { label: Image, name: image, widget: image }
